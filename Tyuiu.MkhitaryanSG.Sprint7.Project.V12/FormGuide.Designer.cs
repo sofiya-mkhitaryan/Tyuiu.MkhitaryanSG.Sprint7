@@ -45,6 +45,7 @@
             // 
             // textBoxOProgram_MSG
             // 
+            textBoxOProgram_MSG.BackColor = SystemColors.InactiveCaption;
             textBoxOProgram_MSG.Location = new Point(12, 68);
             textBoxOProgram_MSG.Multiline = true;
             textBoxOProgram_MSG.Name = "textBoxOProgram_MSG";
@@ -56,6 +57,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Menu;
             ClientSize = new Size(978, 538);
             Controls.Add(textBoxOProgram_MSG);
             Controls.Add(buttonBack_MSG);

@@ -61,43 +61,47 @@
             // 
             // buttonOpen_MSG
             // 
+            buttonOpen_MSG.BackColor = SystemColors.InactiveCaption;
             buttonOpen_MSG.Location = new Point(8, 26);
             buttonOpen_MSG.Name = "buttonOpen_MSG";
             buttonOpen_MSG.Size = new Size(127, 29);
             buttonOpen_MSG.TabIndex = 1;
             buttonOpen_MSG.Text = "Открыть файл";
             toolTipButton.SetToolTip(buttonOpen_MSG, "Открыть файл в формате .cvs");
-            buttonOpen_MSG.UseVisualStyleBackColor = true;
+            buttonOpen_MSG.UseVisualStyleBackColor = false;
             // 
             // buttonSave_MSG
             // 
+            buttonSave_MSG.BackColor = SystemColors.InactiveCaption;
             buttonSave_MSG.Location = new Point(139, 26);
             buttonSave_MSG.Name = "buttonSave_MSG";
             buttonSave_MSG.Size = new Size(94, 29);
             buttonSave_MSG.TabIndex = 3;
             buttonSave_MSG.Text = "Сохранить";
             toolTipButton.SetToolTip(buttonSave_MSG, "Сохранить файл в формате .cvs");
-            buttonSave_MSG.UseVisualStyleBackColor = true;
+            buttonSave_MSG.UseVisualStyleBackColor = false;
             // 
             // buttonAdd_MSG
             // 
+            buttonAdd_MSG.BackColor = SystemColors.InactiveBorder;
             buttonAdd_MSG.Location = new Point(6, 43);
             buttonAdd_MSG.Name = "buttonAdd_MSG";
             buttonAdd_MSG.Size = new Size(94, 29);
             buttonAdd_MSG.TabIndex = 5;
             buttonAdd_MSG.Text = "Добавить";
             toolTipButton.SetToolTip(buttonAdd_MSG, "Добавить новый компьютер");
-            buttonAdd_MSG.UseVisualStyleBackColor = true;
+            buttonAdd_MSG.UseVisualStyleBackColor = false;
             // 
             // buttonDel_MSG
             // 
+            buttonDel_MSG.BackColor = SystemColors.InactiveBorder;
             buttonDel_MSG.Location = new Point(6, 78);
             buttonDel_MSG.Name = "buttonDel_MSG";
             buttonDel_MSG.Size = new Size(94, 29);
             buttonDel_MSG.TabIndex = 6;
             buttonDel_MSG.Text = "Удалить";
             toolTipButton.SetToolTip(buttonDel_MSG, "Выберите ненужную строчку");
-            buttonDel_MSG.UseVisualStyleBackColor = true;
+            buttonDel_MSG.UseVisualStyleBackColor = false;
             // 
             // dataGridViewTable_MSG
             // 
@@ -111,23 +115,25 @@
             // 
             // buttonBack_MSG
             // 
+            buttonBack_MSG.BackColor = SystemColors.InactiveBorder;
             buttonBack_MSG.Image = (Image)resources.GetObject("buttonBack_MSG.Image");
             buttonBack_MSG.Location = new Point(322, 16);
             buttonBack_MSG.Name = "buttonBack_MSG";
             buttonBack_MSG.Size = new Size(45, 39);
             buttonBack_MSG.TabIndex = 12;
             toolTipButton.SetToolTip(buttonBack_MSG, "Вернуться в главное меню");
-            buttonBack_MSG.UseVisualStyleBackColor = true;
+            buttonBack_MSG.UseVisualStyleBackColor = false;
             // 
             // buttonRefresh_MSG
             // 
+            buttonRefresh_MSG.BackColor = SystemColors.InactiveBorder;
             buttonRefresh_MSG.Location = new Point(6, 306);
             buttonRefresh_MSG.Name = "buttonRefresh_MSG";
             buttonRefresh_MSG.Size = new Size(148, 29);
             buttonRefresh_MSG.TabIndex = 20;
             buttonRefresh_MSG.Text = "Обновить список";
             toolTipButton.SetToolTip(buttonRefresh_MSG, "После обнавления появться добавленные строки");
-            buttonRefresh_MSG.UseVisualStyleBackColor = true;
+            buttonRefresh_MSG.UseVisualStyleBackColor = false;
             // 
             // openFileDialogMain_MSG
             // 
@@ -173,12 +179,13 @@
             // 
             // buttonClearFilters_MSG
             // 
+            buttonClearFilters_MSG.BackColor = SystemColors.InactiveBorder;
             buttonClearFilters_MSG.Location = new Point(6, 271);
             buttonClearFilters_MSG.Name = "buttonClearFilters_MSG";
             buttonClearFilters_MSG.Size = new Size(151, 29);
             buttonClearFilters_MSG.TabIndex = 19;
             buttonClearFilters_MSG.Text = "Сброс фильтров";
-            buttonClearFilters_MSG.UseVisualStyleBackColor = true;
+            buttonClearFilters_MSG.UseVisualStyleBackColor = false;
             // 
             // labelFilt
             // 

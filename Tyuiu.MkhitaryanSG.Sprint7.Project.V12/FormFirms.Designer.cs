@@ -59,12 +59,13 @@
             // 
             // buttonBack_MSG
             // 
+            buttonBack_MSG.BackColor = SystemColors.InactiveBorder;
             buttonBack_MSG.Image = (Image)resources.GetObject("buttonBack_MSG.Image");
             buttonBack_MSG.Location = new Point(738, 0);
             buttonBack_MSG.Name = "buttonBack_MSG";
             buttonBack_MSG.Size = new Size(45, 40);
             buttonBack_MSG.TabIndex = 0;
-            buttonBack_MSG.UseVisualStyleBackColor = true;
+            buttonBack_MSG.UseVisualStyleBackColor = false;
             buttonBack_MSG.Click += buttonBack_MSG_Click;
             // 
             // textBoxName_MSG
@@ -99,6 +100,7 @@
             // 
             // listBoxFirms_MSG
             // 
+            listBoxFirms_MSG.BackColor = SystemColors.InactiveBorder;
             listBoxFirms_MSG.FormattingEnabled = true;
             listBoxFirms_MSG.Location = new Point(13, 43);
             listBoxFirms_MSG.Name = "listBoxFirms_MSG";
@@ -124,12 +126,13 @@
             // 
             // buttonSearch_MSG
             // 
+            buttonSearch_MSG.BackColor = SystemColors.InactiveBorder;
             buttonSearch_MSG.Location = new Point(676, 3);
             buttonSearch_MSG.Name = "buttonSearch_MSG";
             buttonSearch_MSG.Size = new Size(94, 29);
             buttonSearch_MSG.TabIndex = 9;
             buttonSearch_MSG.Text = "Найти";
-            buttonSearch_MSG.UseVisualStyleBackColor = true;
+            buttonSearch_MSG.UseVisualStyleBackColor = false;
             // 
             // panelLeft_MSG
             // 
@@ -244,12 +247,13 @@
             // 
             // buttonSave_MSG
             // 
+            buttonSave_MSG.BackColor = SystemColors.InactiveBorder;
             buttonSave_MSG.Location = new Point(638, 3);
             buttonSave_MSG.Name = "buttonSave_MSG";
             buttonSave_MSG.Size = new Size(94, 29);
             buttonSave_MSG.TabIndex = 2;
             buttonSave_MSG.Text = "Сохранить";
-            buttonSave_MSG.UseVisualStyleBackColor = true;
+            buttonSave_MSG.UseVisualStyleBackColor = false;
             // 
             // panelPoisk
             // 
@@ -267,6 +271,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Menu;
             ClientSize = new Size(807, 505);
             Controls.Add(panelPoisk);
             Controls.Add(panelStatus);

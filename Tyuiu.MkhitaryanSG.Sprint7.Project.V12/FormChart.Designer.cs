@@ -41,17 +41,19 @@
             // 
             // buttonBack_MSG
             // 
+            buttonBack_MSG.BackColor = SystemColors.InactiveBorder;
             buttonBack_MSG.Image = (Image)resources.GetObject("buttonBack_MSG.Image");
             buttonBack_MSG.Location = new Point(4, 9);
             buttonBack_MSG.Margin = new Padding(4, 5, 4, 5);
             buttonBack_MSG.Name = "buttonBack_MSG";
             buttonBack_MSG.Size = new Size(100, 35);
             buttonBack_MSG.TabIndex = 0;
-            buttonBack_MSG.UseVisualStyleBackColor = true;
+            buttonBack_MSG.UseVisualStyleBackColor = false;
             buttonBack_MSG.Click += buttonBack_MSG_Click;
             // 
             // buttonLoadCSV_MSG
             // 
+            buttonLoadCSV_MSG.BackColor = SystemColors.InactiveBorder;
             buttonLoadCSV_MSG.Location = new Point(4, 50);
             buttonLoadCSV_MSG.Margin = new Padding(4, 5, 4, 5);
             buttonLoadCSV_MSG.Name = "buttonLoadCSV_MSG";
@@ -59,7 +61,7 @@
             buttonLoadCSV_MSG.TabIndex = 1;
             buttonLoadCSV_MSG.Text = "Загрузить файл";
             toolTipTip.SetToolTip(buttonLoadCSV_MSG, "Формат csv");
-            buttonLoadCSV_MSG.UseVisualStyleBackColor = true;
+            buttonLoadCSV_MSG.UseVisualStyleBackColor = false;
             buttonLoadCSV_MSG.Click += buttonLoadCSV_MSG_Click;
             // 
             // textBoxFilePath
@@ -108,6 +110,7 @@
             // 
             // buttonExportImage
             // 
+            buttonExportImage.BackColor = SystemColors.InactiveCaption;
             buttonExportImage.Location = new Point(159, 5);
             buttonExportImage.Margin = new Padding(4, 5, 4, 5);
             buttonExportImage.Name = "buttonExportImage";
@@ -115,11 +118,12 @@
             buttonExportImage.TabIndex = 9;
             buttonExportImage.Text = "Экспорт в фото";
             toolTipTip.SetToolTip(buttonExportImage, "Экспорт в формат png");
-            buttonExportImage.UseVisualStyleBackColor = true;
+            buttonExportImage.UseVisualStyleBackColor = false;
             buttonExportImage.Click += buttonExportImage_Click;
             // 
             // buttonUpdateChart
             // 
+            buttonUpdateChart.BackColor = SystemColors.InactiveCaption;
             buttonUpdateChart.Location = new Point(4, 5);
             buttonUpdateChart.Margin = new Padding(4, 5, 4, 5);
             buttonUpdateChart.Name = "buttonUpdateChart";
@@ -127,18 +131,19 @@
             buttonUpdateChart.TabIndex = 8;
             buttonUpdateChart.Text = "Обновить график";
             toolTipTip.SetToolTip(buttonUpdateChart, "Если нужно поменять тип графика");
-            buttonUpdateChart.UseVisualStyleBackColor = true;
+            buttonUpdateChart.UseVisualStyleBackColor = false;
             buttonUpdateChart.Click += buttonUpdateChart_Click;
             // 
             // buttonShowData
             // 
+            buttonShowData.BackColor = SystemColors.InactiveCaption;
             buttonShowData.Location = new Point(317, 5);
             buttonShowData.Margin = new Padding(4, 5, 4, 5);
             buttonShowData.Name = "buttonShowData";
             buttonShowData.Size = new Size(147, 35);
             buttonShowData.TabIndex = 10;
             buttonShowData.Text = "Статистика";
-            buttonShowData.UseVisualStyleBackColor = true;
+            buttonShowData.UseVisualStyleBackColor = false;
             buttonShowData.Click += buttonShowData_Click;
             // 
             // pictureBoxChart

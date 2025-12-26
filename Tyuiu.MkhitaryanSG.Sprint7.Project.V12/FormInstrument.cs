@@ -59,7 +59,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             SetupComboBoxes();
         }
 
-        // ИНИЦИАЛИЗАЦИЯ DATA GRID VIEW
+        // ИНИЦИАЛИЗАЦИЯ DATAGRIDVIEW
         private void InitializeDataGridView()
         {
             dataGridViewTable_MSG.AutoGenerateColumns = false;
@@ -612,7 +612,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
         private void InitializeComponent()
         {
             this.Text = "Добавить новый компьютер";
-            this.Size = new Size(400, 350);
+            this.Size = new Size(450, 350);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -625,7 +625,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 
         private void CreateControls()
         {
-            txtManufacturer = new TextBox { Location = new Point(150, 50), Width = 200 };
+            txtManufacturer = new TextBox { Location = new Point(150, 20), Width = 200 };
             txtProcessor = new TextBox { Location = new Point(150, 50), Width = 200 };
             txtClockSpeed = new TextBox { Location = new Point(150, 80), Width = 100 };
             txtRAM = new TextBox { Location = new Point(150, 110), Width = 100 };
@@ -642,7 +642,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             {
                 Text = "Добавить",
                 DialogResult = DialogResult.OK,
-                Location = new Point(100, 240),
+                Location = new Point(100, 230),
                 Width = 80
             };
 
@@ -650,7 +650,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             {
                 Text = "Отмена",
                 DialogResult = DialogResult.Cancel,
-                Location = new Point(200, 240),
+                Location = new Point(200, 230),
                 Width = 80
             };
 
