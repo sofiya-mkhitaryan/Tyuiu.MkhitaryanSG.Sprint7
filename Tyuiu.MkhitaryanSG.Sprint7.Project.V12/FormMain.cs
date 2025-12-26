@@ -2,34 +2,35 @@ using System.Windows.Forms;
 using Tyuiu.MkhitaryanSG.Sprint7.Project.V12.Lib;
 namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 {
-    public partial class FormMain : Form
+    public partial class FormMain : System.Windows.Forms.Form
     {
         public FormMain()
         {
             InitializeComponent();
         }
-
-        static int rows;
-        static int columns;
-        static string openFilePath;
-        DataService ds = new DataService();
-        private void Form1_Load(object sender, EventArgs e)
+        private void buttonOpen_MSG_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            FormInstrument formInstrument = new FormInstrument();
+            formInstrument.Show();
         }
-        private void buttonAbout_MSG_Click(object sender, EventArgs e)
+        private void buttonFirms_MSG_Click(object sender, EventArgs e)
         {
-            FormAbout_MSG formAbout = new FormAbout_MSG();
-            formAbout.ShowDialog();
+            this.Hide();
+            FormFirms_MSG fM = new FormFirms_MSG();
+            fM.ShowDialog();
         }
-        private void buttonHelp_MSG_MouseEnter(object sender, EventArgs e)
+        private void buttonOProgram_MSG_Click(object sender, EventArgs e)
         {
-            toolTipButton.ToolTipTitle = "Руководство пользователя";
+            this.Hide();
+            FormGuide_MSG fG = new FormGuide_MSG();
+            fG.ShowDialog();
         }
-        private void buttonHelp_MSG_Click(object sender, EventArgs e)
+        private void buttonChart_MSG_Click(object sender, EventArgs e)
         {
-            FormGuide_MSG formGuide = new FormGuide_MSG();
-            formGuide.ShowDialog();
+            this.Hide();  // Скрываем главное меню
+            FormChart_MSG fC = new FormChart_MSG();
+            fC.Show();    // Используйте Show() вместо ShowDialog()
         }
     }
 }

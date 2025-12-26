@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 {
-    public partial class FormGuide_MSG : Form
+    public partial class FormGuide_MSG : System.Windows.Forms.Form
     {
         public FormGuide_MSG()
         {
             InitializeComponent();
+        }
+        private void buttonBack_MSG_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormMain fm = new FormMain();
+            fm.Show();
         }
     }
 }
