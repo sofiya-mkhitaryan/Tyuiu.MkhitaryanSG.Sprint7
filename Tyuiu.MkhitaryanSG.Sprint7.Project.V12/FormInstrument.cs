@@ -17,9 +17,9 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
         private string openFilePath;
         private List<Computer> computersList = new List<Computer>();
 
-        // Класс для хранения данных о компьютере - ДОЛЖЕН БЫТЬ PUBLIC
         public class Computer
         {
+            //// класс для хранения данных о компах
             public string Manufacturer { get; set; }      // Фирма-изготовитель
             public string ProcessorType { get; set; }     // Тип процессора
             public double ClockSpeed { get; set; }        // Тактовая частота (GHz)
@@ -28,10 +28,8 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             public DateTime ReleaseDate { get; set; }     // Дата выпуска
             public decimal Price { get; set; }            // Цена
 
-            // Конструктор по умолчанию
             public Computer() { }
 
-            // Конструктор с параметрами
             public Computer(string manufacturer, string processorType, double clockSpeed,
                            int ram, int hdd, DateTime releaseDate, decimal price)
             {
@@ -44,7 +42,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 Price = price;
             }
 
-            // Метод для отображения
             public override string ToString()
             {
                 return $"{Manufacturer} | {ProcessorType} | {ClockSpeed}GHz | {RAM}GB RAM | {HDD}GB HDD | {ReleaseDate:dd.MM.yyyy} | {Price:N2} руб.";
@@ -59,13 +56,11 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             SetupComboBoxes();
         }
 
-        // ИНИЦИАЛИЗАЦИЯ DATAGRIDVIEW
         private void InitializeDataGridView()
         {
             dataGridViewTable_MSG.AutoGenerateColumns = false;
             dataGridViewTable_MSG.Columns.Clear();
 
-            // Добавляем колонки с правильными заголовками
             DataGridViewTextBoxColumn[] columns = {
                 new DataGridViewTextBoxColumn {
                     Name = "Manufacturer",
@@ -116,14 +111,12 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 
             dataGridViewTable_MSG.Columns.AddRange(columns);
 
-            // Настройка внешнего вида
             dataGridViewTable_MSG.AllowUserToAddRows = false;
             dataGridViewTable_MSG.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewTable_MSG.RowHeadersVisible = false;
             dataGridViewTable_MSG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // НАСТРОЙКА ОБРАБОТЧИКОВ СОБЫТИЙ
         private void SetupEventHandlers()
         {
             buttonBack_MSG.Click += ButtonBack_MSG_Click;
@@ -137,10 +130,8 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             comboBoxSorted_MSG.SelectedIndexChanged += ComboBoxSorted_MSG_SelectedIndexChanged;
             comboBoxFiltr_MSG.SelectedIndexChanged += ComboBoxFiltr_MSG_SelectedIndexChanged;
 
-            // Двойной клик для просмотра деталей
             dataGridViewTable_MSG.CellDoubleClick += DataGridViewTable_MSG_CellDoubleClick;
 
-            // Обработка нажатия Enter в поиске
             textBoxSearch_MSG.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -150,10 +141,8 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             };
         }
 
-        // НАСТРОЙКА COMBOBOX
         private void SetupComboBoxes()
         {
-            // Настройка сортировки
             comboBoxFiltr_MSG.Items.AddRange(new string[]
             {
                 "Без сортировки",
@@ -168,14 +157,10 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             });
             comboBoxFiltr_MSG.SelectedIndex = 0;
 
-            // Настройка фильтрации
             comboBoxSorted_MSG.Items.Add("Все производители");
             comboBoxSorted_MSG.SelectedIndex = 0;
+
         }
-
-        
-
-        // КНОПКА "НАЗАД"
         private void ButtonBack_MSG_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -187,7 +172,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             
         }
 
-        // ОТКРЫТИЕ ФАЙЛА
         private void ButtonOpen_MSG_Click(object sender, EventArgs e)
         {
             try
@@ -216,7 +200,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // ЗАГРУЗКА ДАННЫХ ИЗ ФАЙЛА
         private void LoadDataFromFile(string filePath)
         {
             computersList.Clear();
@@ -225,16 +208,34 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             int rows = matrix.GetLength(0);
             int columns = matrix.GetLength(1);
 
-            // Проверяем минимальное количество колонок
             if (columns < 7)
             {
                 throw new Exception("Файл должен содержать минимум 7 колонок данных");
             }
 
-            for (int i = 0; i < rows; i++)
+            // пропуск заголовка
+            int startRow = 0;
+
+            // проверка
+            if (rows > 0)
+            {
+                string firstCell = matrix[0, 0]?.Trim() ?? "";
+                if (firstCell.Equals("Фирма-изготовитель", StringComparison.OrdinalIgnoreCase) ||
+                    firstCell.Equals("Manufacturer", StringComparison.OrdinalIgnoreCase))
+                {
+                    startRow = 1; // Пропускаем заголовки
+                    Console.WriteLine("Пропущена строка заголовков");
+                }
+            }
+
+            for (int i = startRow; i < rows; i++)
             {
                 try
                 {
+                    // скип пустых строк
+                    if (string.IsNullOrWhiteSpace(matrix[i, 0]))
+                        continue;
+
                     Computer computer = new Computer
                     {
                         Manufacturer = matrix[i, 0]?.Trim() ?? "",
@@ -246,26 +247,40 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                         Price = ParseDecimal(matrix[i, 6])
                     };
 
+                    // доп
+                    if (string.IsNullOrWhiteSpace(computer.Manufacturer))
+                        continue;
+
                     computersList.Add(computer);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка в строке {i + 1}: {ex.Message}",
+                    MessageBox.Show($"Ошибка в строке {i + 1}: {ex.Message}\nДанные: {string.Join(", ", GetRowData(matrix, i))}",
                         "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 
-            // Привязка данных к DataGridView
             BindDataToGridView();
         }
 
-        // ПРИВЯЗКА ДАННЫХ К GRIDVIEW
+        // вспомогательный метод
+        private string GetRowData(string[,] matrix, int rowIndex)
+        {
+            StringBuilder sb = new StringBuilder();
+            int cols = matrix.GetLength(1);
+            for (int j = 0; j < cols; j++)
+            {
+                sb.Append($"'{matrix[rowIndex, j]}'");
+                if (j < cols - 1) sb.Append("; ");
+            }
+            return sb.ToString();
+        }
+
         private void BindDataToGridView()
         {
             dataGridViewTable_MSG.DataSource = null;
             dataGridViewTable_MSG.DataSource = computersList;
 
-            // Автоматическая подстройка ширины и высоты столбцов
             dataGridViewTable_MSG.AutoResizeColumns();
             dataGridViewTable_MSG.AutoResizeRows();
 
@@ -278,12 +293,27 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 labelStatus_MSG.Text = message;
         }
 
-        // ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ДЛЯ ПАРСИНГА
         private double ParseDouble(string value)
         {
             if (string.IsNullOrWhiteSpace(value)) return 0;
+
+            // даляем все нечисловые символы, кроме точки, запятой и минуса
+            value = value.Trim();
+
+            // заменяем запятую на точку, если есть
             value = value.Replace(',', '.');
-            return double.TryParse(value, out double result) ? result : 0;
+
+            // удаляем лишние символы
+            value = System.Text.RegularExpressions.Regex.Replace(value, @"[^0-9\.\-]", "");
+
+            if (double.TryParse(value,
+                System.Globalization.NumberStyles.Any,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out double result))
+            {
+                return result;
+            }
+            return 0;
         }
 
         private int ParseInt(string value)
@@ -303,7 +333,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
         {
             if (string.IsNullOrWhiteSpace(value)) return DateTime.Now;
 
-            // Пробуем разные форматы даты
             string[] formats = { "dd.MM.yyyy", "dd/MM/yyyy", "yyyy-MM-dd", "MM/dd/yyyy" };
             return DateTime.TryParseExact(value, formats,
                 System.Globalization.CultureInfo.InvariantCulture,
@@ -311,7 +340,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 ? result : DateTime.Now;
         }
 
-        // СОХРАНЕНИЕ ДАННЫХ
         private void ButtonSave_MSG_Click(object sender, EventArgs e)
         {
             try
@@ -361,7 +389,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // ДОБАВЛЕНИЕ НОВОЙ ЗАПИСИ 
         private void ButtonAdd_MSG_Click(object sender, EventArgs e)
         {
             try
@@ -373,10 +400,8 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                         Computer newComputer = addForm.GetComputer();
                         computersList.Add(newComputer);
 
-                        // Обновляем DataGridView
                         BindDataToGridView();
 
-                        // Обновляем комбобокс производителей
                         UpdateManufacturersComboBox();
 
                         MessageBox.Show($"Компьютер {newComputer.Manufacturer} успешно добавлен!",
@@ -391,7 +416,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // УДАЛЕНИЕ ЗАПИСИ
         private void ButtonDel_MSG_Click(object sender, EventArgs e)
         {
             if (dataGridViewTable_MSG.SelectedRows.Count == 0)
@@ -408,7 +432,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             {
                 try
                 {
-                    // Удаляем из списка
                     foreach (DataGridViewRow row in dataGridViewTable_MSG.SelectedRows)
                     {
                         if (row.DataBoundItem is Computer computer)
@@ -417,10 +440,8 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                         }
                     }
 
-                    // Обновляем DataGridView
                     BindDataToGridView();
 
-                    // Обновляем комбобокс
                     UpdateManufacturersComboBox();
 
                     MessageBox.Show($"Удалено {dataGridViewTable_MSG.SelectedRows.Count} записей",
@@ -434,7 +455,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // ПОКАЗ ДЕТАЛЕЙ ПРИ ДВОЙНОМ КЛИКЕ
         private void DataGridViewTable_MSG_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.RowIndex < computersList.Count)
@@ -478,7 +498,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             UpdateStatus($"Найдено: {filtered.Count} из {computersList.Count}");
         }
 
-        // СОРТИРОВКА
         private void ComboBoxFiltr_MSG_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxFiltr_MSG.SelectedIndex == 0 || computersList.Count == 0) return;
@@ -517,7 +536,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             UpdateStatus($"Отсортировано по: {comboBoxFiltr_MSG.SelectedItem}");
         }
 
-        // ФИЛЬТРАЦИЯ ПО ПРОИЗВОДИТЕЛЮ
         private void ComboBoxSorted_MSG_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxSorted_MSG.SelectedIndex == 0) // "Все производители"
@@ -534,7 +552,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // ОБНОВЛЕНИЕ COMBOBOX ПРОИЗВОДИТЕЛЕЙ
         private void UpdateManufacturersComboBox()
         {
             comboBoxSorted_MSG.Items.Clear();
@@ -550,7 +567,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             comboBoxSorted_MSG.SelectedIndex = 0;
         }
 
-        // СБРОС ФИЛЬТРОВ
         private void ButtonClearFilters_MSG_Click(object sender, EventArgs e)
         {
             ResetFilters();
@@ -565,7 +581,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             UpdateStatus($"Все фильтры сброшены. Всего записей: {computersList.Count}");
         }
 
-        // ОБНОВЛЕНИЕ СПИСКА
         private void ButtonRefresh_MSG_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(openFilePath) && File.Exists(openFilePath))
@@ -604,7 +619,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 
         private void FormAddComputer_Load(object sender, EventArgs e)
         {
-            // Устанавливаем текущую дату по умолчанию
             dtpReleaseDate.Value = DateTime.Now;
             txtManufacturer.Focus();
         }
@@ -618,7 +632,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
-            // Создание элементов управления
             CreateControls();
             LayoutControls();
         }
@@ -654,7 +667,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 Width = 80
             };
 
-            // Добавление обработчиков
             btnOK.Click += BtnOK_Click;
         }
 
@@ -685,7 +697,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 this.Controls.Add(label);
             }
 
-            // Добавление элементов управления
             this.Controls.AddRange(new Control[] {
                 txtManufacturer, txtProcessor, txtClockSpeed, txtRAM,
                 txtHDD, dtpReleaseDate, txtPrice, btnOK, btnCancel
@@ -694,7 +705,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            // Валидация данных
             if (string.IsNullOrWhiteSpace(txtManufacturer.Text))
             {
                 MessageBox.Show("Введите фирму-изготовителя", "Ошибка",

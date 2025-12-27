@@ -67,7 +67,7 @@
             buttonOpen_MSG.Size = new Size(127, 29);
             buttonOpen_MSG.TabIndex = 1;
             buttonOpen_MSG.Text = "Открыть файл";
-            toolTipButton.SetToolTip(buttonOpen_MSG, "Открыть файл в формате .cvs");
+            toolTipButton.SetToolTip(buttonOpen_MSG, "Открыть файл в любом формате");
             buttonOpen_MSG.UseVisualStyleBackColor = false;
             // 
             // buttonSave_MSG
@@ -106,9 +106,11 @@
             // dataGridViewTable_MSG
             // 
             dataGridViewTable_MSG.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridViewTable_MSG.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewTable_MSG.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewTable_MSG.Location = new Point(392, 0);
             dataGridViewTable_MSG.Name = "dataGridViewTable_MSG";
+            dataGridViewTable_MSG.RowHeadersVisible = false;
             dataGridViewTable_MSG.RowHeadersWidth = 51;
             dataGridViewTable_MSG.Size = new Size(708, 516);
             dataGridViewTable_MSG.TabIndex = 7;

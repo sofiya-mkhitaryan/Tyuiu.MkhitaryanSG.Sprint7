@@ -21,7 +21,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             AttachEventHandlers();
         }
 
-        // КЛАСС ДЛЯ ХРАНЕНИЯ ДАННЫХ О ФИРМЕ
+        // класс для хранения данных о компах
         private class Firm
         {
             public string Name { get; set; }
@@ -35,16 +35,13 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             public string PriceCategory { get; set; }
         }
 
-        // ЗАГРУЗКА ГОТОВЫХ ДАННЫХ О ФИРМАХ
         private void LoadFirmsData()
         {
             try
             {
-                // Очищаем список
                 firmsList.Clear();
                 listBoxFirms_MSG.Items.Clear();
 
-                // ДОБАВЛЯЕМ ПОДРОБНЫЕ ДАННЫЕ О ФИРМАХ
 
                 // 1. ASUS
                 firmsList.Add(new Firm
@@ -325,7 +322,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                     PriceCategory = "Средний сегмент"
                 });
 
-                // СОРТИРУЕМ ФИРМЫ ПО АЛФАВИТУ И ДОБАВЛЯЕМ В LISTBOX
+                // сорт по алф и в лист
                 var sortedFirms = firmsList.OrderBy(f => f.Name).ToList();
 
                 foreach (var firm in sortedFirms)
@@ -333,16 +330,14 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                     listBoxFirms_MSG.Items.Add(firm.Name);
                 }
 
-                // ВЫБИРАЕМ ПЕРВУЮ ФИРМУ
+                
                 if (listBoxFirms_MSG.Items.Count > 0)
                 {
                     listBoxFirms_MSG.SelectedIndex = 0;
                 }
 
-                // ОБНОВЛЯЕМ СТАТУС
                 UpdateStatusAndCount();
 
-                // СООБЩЕНИЕ О ЗАГРУЗКЕ
                 labelStatus_MSG.Text = $"Загружено {firmsList.Count} фирм-реализаторов";
 
             }
@@ -354,14 +349,12 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // ОБНОВЛЕНИЕ СТАТУСА И СЧЕТЧИКА
         private void UpdateStatusAndCount()
         {
             int count = firmsList.Count;
             labelCount_MSG.Text = $"Всего фирм в справочнике: {count}";
         }
 
-        // ПОКАЗ ДЕТАЛЬНОЙ ИНФОРМАЦИИ О ФИРМЕ
         private void ShowFirmDetails(string firmName)
         {
             try
@@ -369,12 +362,12 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 var firm = firmsList.FirstOrDefault(f => f.Name == firmName);
                 if (firm != null)
                 {
-                    // ОСНОВНАЯ ИНФОРМАЦИЯ
+                    //основа
                     textBoxName_MSG.Text = firm.Name;
                     textBoxAddress_MSG.Text = firm.Address;
                     textBoxPhone_MSG.Text = firm.Phone;
 
-                    // ФОРМИРУЕМ ПОДРОБНОЕ ПРИМЕЧАНИЕ
+                    // подробнее
                     string detailedInfo = $"{firm.Description}\n\n" +
                                          $"Специализация: {firm.Specialization}\n" +
                                          $"Год основания: {firm.YearFounded}\n" +
@@ -384,7 +377,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
 
                     textBoxNote_MSG.Text = detailedInfo;
 
-                    // ОБНОВЛЯЕМ СТАТУС
                     labelStatus_MSG.Text = $"Выбрана фирма: {firm.Name}";
                 }
             }
@@ -395,7 +387,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // ПОИСК ФИРМЫ
+        // поиск
         private void SearchFirm(string searchText)
         {
             if (string.IsNullOrWhiteSpace(searchText))
@@ -406,10 +398,9 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 }
                 return;
             }
-
+            //названия
             searchText = searchText.ToLower();
 
-            // ИЩЕМ ПО НАЗВАНИЮ
             for (int i = 0; i < listBoxFirms_MSG.Items.Count; i++)
             {
                 string firmName = listBoxFirms_MSG.Items[i].ToString().ToLower();
@@ -421,8 +412,7 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                     return;
                 }
             }
-
-            // ИЩЕМ В ДРУГИХ ПОЛЯХ
+            //другое
             var foundFirm = firmsList.FirstOrDefault(f =>
                 f.Description.ToLower().Contains(searchText) ||
                 f.Specialization.ToLower().Contains(searchText) ||
@@ -438,100 +428,12 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                     return;
                 }
             }
-
-            // ЕСЛИ НЕ НАЙДЕНО
             labelStatus_MSG.Text = $"Фирма по запросу '{searchText}' не найдена";
             MessageBox.Show($"Фирма по запросу '{searchText}' не найдена в справочнике.",
                 "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        // ФИЛЬТРАЦИЯ ПО КАТЕГОРИЯМ
-        private void FilterByCategory(string category)
-        {
-            try
-            {
-                List<string> filteredFirms = new List<string>();
-
-                switch (category)
-                {
-                    case "Все":
-                        filteredFirms = firmsList.Select(f => f.Name).ToList();
-                        break;
-
-                    case "Игровые":
-                        filteredFirms = firmsList
-                            .Where(f => f.Specialization.ToLower().Contains("игр") ||
-                                       f.Name == "Razer" ||
-                                       f.Name == "MSI" ||
-                                       f.PriceCategory.ToLower().Contains("игр"))
-                            .Select(f => f.Name)
-                            .ToList();
-                        break;
-
-                    case "Бюджетные":
-                        filteredFirms = firmsList
-                            .Where(f => f.PriceCategory.ToLower().Contains("бюджет"))
-                            .Select(f => f.Name)
-                            .ToList();
-                        break;
-
-                    case "Премиум":
-                        filteredFirms = firmsList
-                            .Where(f => f.PriceCategory.ToLower().Contains("премиум"))
-                            .Select(f => f.Name)
-                            .ToList();
-                        break;
-
-                    case "Бизнес":
-                        filteredFirms = firmsList
-                            .Where(f => f.Specialization.ToLower().Contains("бизнес") ||
-                                       f.Name == "Lenovo" ||
-                                       f.Name == "Dell" ||
-                                       f.Name == "HP")
-                            .Select(f => f.Name)
-                            .ToList();
-                        break;
-
-                    case "Американские":
-                        filteredFirms = firmsList
-                            .Where(f => f.Address.Contains("США"))
-                            .Select(f => f.Name)
-                            .ToList();
-                        break;
-
-                    case "Азиатские":
-                        filteredFirms = firmsList
-                            .Where(f => f.Address.Contains("Тайвань") ||
-                                       f.Address.Contains("Китай") ||
-                                       f.Address.Contains("Япония") ||
-                                       f.Address.Contains("Корея"))
-                            .Select(f => f.Name)
-                            .ToList();
-                        break;
-                }
-
-                // ОБНОВЛЯЕМ LISTBOX
-                listBoxFirms_MSG.Items.Clear();
-                foreach (var firm in filteredFirms.OrderBy(f => f))
-                {
-                    listBoxFirms_MSG.Items.Add(firm);
-                }
-
-                if (listBoxFirms_MSG.Items.Count > 0)
-                {
-                    listBoxFirms_MSG.SelectedIndex = 0;
-                }
-
-                labelStatus_MSG.Text = $"Показано фирм: {filteredFirms.Count} (фильтр: {category})";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка фильтрации: {ex.Message}",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // ОБРАБОТЧИКИ СОБЫТИЙ
+        // обр события
         private void AttachEventHandlers()
         {
             buttonBack_MSG.Click += ButtonBack_MSG_Click;
@@ -539,7 +441,6 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             listBoxFirms_MSG.SelectedIndexChanged += ListBoxFirms_MSG_SelectedIndexChanged;
 
            
-            // ОБРАБОТКА ENTER В ПОЛЕ ПОИСКА
             textBoxSearch_MSG.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
@@ -548,12 +449,12 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
                 }
             };
 
-            // КНОПКА СОХРАНЕНИЯ В ФАЙЛ
+            // сохр в файл
             if (buttonSave_MSG != null)
                 buttonSave_MSG.Click += ButtonSaveToFile_MSG_Click;
         }
 
-        // ВЫБОР ФИРМЫ ИЗ СПИСКА
+        // выбираем фирму из лист
         private void ListBoxFirms_MSG_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxFirms_MSG.SelectedIndex >= 0)
@@ -563,13 +464,12 @@ namespace Tyuiu.MkhitaryanSG.Sprint7.Project.V12
             }
         }
 
-        // КНОПКА "НАЗАД"
         private void ButtonBack_MSG_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        // СОХРАНЕНИЕ СПРАВОЧНИКА В ФАЙЛ
+        // справочник в файл
         private void ButtonSaveToFile_MSG_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog saveDialog = new SaveFileDialog())
